@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Меню</title>
+    <style>
+        form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+        select {margin-right: 10px;}
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        select {
+            padding: 8px 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #3385ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        a {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h4 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+        div{
+            display: block;
+            float: left;
+            margin: 0 30px;
+
+        }
+    </style>
+</head>
+<body>
+</script>
+<div style="width:30%; border-right: #0056b3 3px;" >
+    <h4>Доступные фильтры заказов </h4>
+<a th:href="@{../authenticated/all}">Все заказы</a>
+<a th:href="@{../authenticated/new}">Новые заказы</a>
+<a th:href="@{../authenticated/complete}">Завершенные заказы</a>
+<a th:href="@{../authenticated}">Заказы по городам</a>
+<form th:action="@{../authenticated/city}" method="get">
+    <select name="city">
+        <option value="1">Москва</option>
+        <option value="2">Санкт-Петербург</option>
+        <option value="3">Тверь</option>
+    </select>
+    <button type="submit">Поиск</button>
+</form>
+<br>
+<a th:href="@{../authenticated}">Поиск заказов по номеру телефона</a>
+<form th:action="@{../authenticated/order}" method="get">
+    <input type="text" name="phoneNumber" placeholder="Введите номер телефона">
+    <button type="submit">Поиск</button>
+</form>
+</div>
+<div>
+<h4>Список заказов</h4>
+<table style="width: 1000px" class="clients">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Город</th>
+        <th>Имя</th>
+        <th>Телефон</th>
+        <th>Примечание</th>
+        <th>Форель</th>
+        <th>Икра</th>
+        <th>Печень трески</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order:${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.city}"></td>
+        <td th:text="${order.client.name}"></td>
+        <td th:text="${order.client.phone}"></td>
+        <td th:text="${order.notice}"></td>
+        <td th:text="${order.product.trout}"></td>
+        <td th:text="${order.product.caviar}"></td>
+        <td th:text="${order.product.codLiver}"></td>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

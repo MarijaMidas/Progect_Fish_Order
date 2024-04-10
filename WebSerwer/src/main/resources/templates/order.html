@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форма заказа товара</title>
+  <style>
+      img {
+          widht: 100px;
+          height: 100px;
+          display: block;
+          margin: 0 auto;
+      }
+
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f0f0;
+          margin: 0;
+          padding: 0;
+      }
+
+      form {
+          max-width: 600px;
+          margin: 20px auto;
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form input,
+      form select,
+      form textarea,
+      form button {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          margin: 0 auto;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-sizing: border-box;
+      }
+      form button {margin: 10px auto;}
+
+      form button:hover {
+          background-color: #41A150;
+      }
+      form input[type="submit"] {
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          cursor: pointer;
+      }
+
+      form input[type="submit"]:hover {
+          background-color: #45a049;
+      }
+
+      form select {
+          height: 40px;
+      }
+
+      form textarea {
+          height: 100px;
+          margin-top: 10px;
+      }
+
+      form p {
+          margin: 10px 0;
+      }
+
+      label {
+          display: inline-block;
+          text-align: center;
+          margin: 5px auto;
+          width: 100%;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+          color: #ccc;
+      }
+      div{
+          display: block;
+          float: left;
+          width:33%;
+      }
+      div input {
+          width:94%;
+          margin: 2% auto;
+      }
+  </style>
+
+</head>
+<body>
+<form id="myForm" th:action="@{/order}" th:object="${order}" th:method="post">
+    <div ><img src="/img/t1.jpg" ><label>Форель(шт)</label><input type="number" name="trout" value="0" th:field="*{trout}"></div>
+    <div ><img src="/img/t2.jpg"><label>Икра(шт)</label><input type="number" name="caviar" value="0" th:field="*{caviar}"></div>
+    <div ><img src="/img/t3.jpg" ><label>Печень трески(шт)</label><input type="number" name="codLiver" value="0" th:field="*{codLiver}"></div>
+    <p><label for="name"></label><input type="text" id="name" name="name" autofocus required placeholder="Введите имя клиента" th:field="*{name}"/></p>
+    <p><label for="phone"></label><input type="tel" id="phone" name="phone" autofocus required minlength="11" maxlength="12" placeholder="Введите телефон клиента" th:field="*{phone}"/></p>
+    <select th:field="*{city}">
+      <option th:value="1">Москва</option>
+      <option th:value="2">Санкт-Петербург</option>
+      <option th:value="3">Тверь</option>
+    </select>
+  <textarea name="comment" placeholder="Добавьте комментарий(Укажите полный адрес и время доставки)" th:field="*{notice}"></textarea>
+  <button type="submit" onclick="confirmOrder()">Отправить</button>
+</form>
+<script>
+    function confirmOrder() {
+        if (confirm("Подтвердите ваш заказ")) {
+            document.getElementById("myForm").submit();
+        }
+
+    }
+</script>
+<a th:href="@{authenticated}">Авторизация</a>
+</body>
+</html>
